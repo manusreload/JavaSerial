@@ -5,7 +5,6 @@
 #ifndef JAVA_SERIAL_SERIALWIN32_H
 #define JAVA_SERIAL_SERIALWIN32_H
 
-#include <mem.h>
 #include <stdlib.h>
 #include <windows.h>
 #include "Serial.h"

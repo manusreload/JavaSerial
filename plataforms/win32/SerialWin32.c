@@ -20,7 +20,6 @@ baseSerial * serial_create(char * portName, long baudRate) {
 
 cbool serial_connect(baseSerial * serial)
 {
-    printf("OK Port: %s\n", serial->portName);
     serial->connected = 0;
     serial->privateSerial->hSerial = CreateFile(serial->portName,
                                GENERIC_READ | GENERIC_WRITE,
@@ -135,8 +134,6 @@ int serial_read(baseSerial * serial, char * buffer, int size) {
         //Try to read the require number of chars, and return the number of read bytes on success
         if(ReadFile(serial->privateSerial->hSerial, buffer, toRead, &bytesRead, NULL) )
         {
-            buffer[bytesRead] = '\0';
-            printf("Read(%d): %s\n", bytesRead, buffer);
             return bytesRead;
         } else {
             return SERIAL_ERROR;
@@ -147,84 +144,5 @@ int serial_read(baseSerial * serial, char * buffer, int size) {
     //If nothing has been read, or that an error was detected return 0
     return 0;
 }
-//
-//SerialWin32::SerialWin32(const char *portName, long baudRate) : portName(portName), baudRate(baudRate) {
-//    this->connected = static_cast<bool *>(malloc(1));
-//    printf("Costruct %s. this p: %016x, connected p: %016x\n", this->portName, this, &this->baudRate);
-//}
-//SerialWin32::~SerialWin32() {
-//    if(this->connected)
-//    {
-//        //We're no longer connected
-//        this->connected = false;
-//        //Close the serial handler
-//        CloseHandle(this->hSerial);
-//    }
-//}
-//
-//int SerialWin32::Connect(const long timeout) {
-//    printf("OK1 %016x %016x\n", this, &this->connected);
-//    printf("OK2\n");
-//    this->hSerial = CreateFile(portName,
-//                               GENERIC_READ | GENERIC_WRITE,
-//                               0,
-//                               NULL,
-//                               OPEN_EXISTING,
-//                               FILE_ATTRIBUTE_NORMAL,
-//                               NULL);
-//
-//    printf("OK3\n");
-//}
-//
-//int SerialWin32::ReadData(char *buffer, unsigned int nbChar) {
-//    //Number of bytes we'll have read
-//    DWORD bytesRead;
-//    //Number of bytes we'll really ask to read
-//    unsigned int toRead;
-//
-//    //Use the ClearCommError function to get status info on the Serial port
-//    ClearCommError(this->hSerial, &this->errors, &this->status);
-//
-//    //Check if there is something to read
-//    if(this->status.cbInQue>0)
-//    {
-//        //If there is we check if there is enough data to read the required number
-//        //of characters, if not we'll read only the available characters to prevent
-//        //locking of the application.
-//        if(this->status.cbInQue>nbChar)
-//        {
-//            toRead = nbChar;
-//        }
-//        else
-//        {
-//            toRead = this->status.cbInQue;
-//        }
-//
-//        //Try to read the require number of chars, and return the number of read bytes on success
-//        if(ReadFile(this->hSerial, buffer, toRead, &bytesRead, NULL) )
-//        {
-//            return bytesRead;
-//        }
-//
-//    }
-//
-//    //If nothing has been read, or that an error was detected return 0
-//    return 0;
-//}
-//
-//bool SerialWin32::WriteData(const char *buffer, unsigned int nbChar) {
-//    DWORD bytesSend;
-//
-//    //Try to write the buffer on the Serial port
-//    if(!WriteFile(this->hSerial, (void *)buffer, nbChar, &bytesSend, 0))
-//    {
-//        //In case it don't work get comm error and return false
-//        ClearCommError(this->hSerial, &this->errors, &this->status);
-//
-//        return false;
-//    }
-//    else
-//        return true;
-//}
 
 

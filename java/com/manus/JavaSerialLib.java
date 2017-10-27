@@ -51,9 +51,8 @@ class JavaSerialLib {
         System.out.println("Loading...");
 
         byte data[] = "Hello world!".getBytes();
-        JavaSerialLib lib = null;
         try {
-            lib = new JavaSerialLib("COM8", 9600);
+            JavaSerialLib lib = new JavaSerialLib("COM8", 9600);
             lib.sayHello();
             if(lib.connect()) {
 
