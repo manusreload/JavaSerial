@@ -19,7 +19,7 @@ class JavaSerialLib {
     private int baudRate;
     private String portName;
 
-    public JavaSerialLib(String portName, int baudRate) throws Exception {
+    public JavaSerialLib(String portName, int baudRate) {
         this.baudRate = baudRate;
         this.portName = portName;
         this.struct = init(portName, baudRate);
