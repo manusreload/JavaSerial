@@ -6,12 +6,7 @@
 #include "SerialWin32.h"
 baseSerial * serial_create(char * portName, long baudRate) {
 
-    baseSerial * serial = serial_alloc();
-    serial->connected = 0;
-    serial->portName = malloc(strlen(portName));
-    memcpy(serial->portName, portName, strlen(portName) + 1); // + 1 to include the \0 character
-    serial->baudRate = baudRate;
-
+    baseSerial * serial = _serial_create(portName, baudRate);
     serial->privateSerial = (privateSerial *) malloc(sizeof(privateSerial));
     serial->privateSerial->errors = (LPDWORD) malloc(sizeof(LPDWORD));
     serial->privateSerial->status = (LPCOMSTAT) malloc(sizeof(LPCOMSTAT));
@@ -144,5 +139,4 @@ int serial_read(baseSerial * serial, char * buffer, int size) {
     //If nothing has been read, or that an error was detected return 0
     return 0;
 }
-
 

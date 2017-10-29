@@ -8,4 +8,8 @@
 #ifdef WIN32
 #include "../plataforms/win32/SerialWin32.h"
 #endif
+
+#if defined(__APPLE__) || defined(__linux__)
+#include "../plataforms/unix/SerialUnix.h"
+#endif
 #endif //JAVA_SERIAL_PLATAFORMS_H

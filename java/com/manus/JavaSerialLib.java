@@ -1,11 +1,18 @@
 package com.manus;
 
 
+import java.io.File;
 import java.nio.ByteBuffer;
 
 class JavaSerialLib {
     static {
-        System.loadLibrary("libjava_serial");
+        //
+        try {
+
+            System.load(new File(System.getProperty("user.dir"),"./libjava_serial.dylib").toString());
+//            System.loadLibrary("libjava_serial");
+        } catch (Exception ex) {
+        }
     }
     private native void sayHello();
 
@@ -52,7 +59,7 @@ class JavaSerialLib {
 
         byte data[] = "Hello world!".getBytes();
         try {
-            JavaSerialLib lib = new JavaSerialLib("COM8", 9600);
+            JavaSerialLib lib = new JavaSerialLib("/dev/cu.wchusbserial14210", 9600);
             lib.sayHello();
             if(lib.connect()) {
 

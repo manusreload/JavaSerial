@@ -1,13 +1,16 @@
 #include <jni.h>
 #include  <iostream>
+#include <stdlib.h>
 #include <Serial.h>
+#include <Sleep.h>
+
 
 
 using namespace std;
 
 
 int main(int argc, char ** argv) {
-    baseSerial * serial = serial_create("COM8", 9600);
+    baseSerial * serial = serial_create("/dev/cu.wchusbserial14210", 9600);
     if(serial_connect(serial)) {
         char * data = "world is the world!\0";
         serial_write(serial, data, strlen(data));

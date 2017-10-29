@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.5.1)
 project(java_serial)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -21,6 +21,11 @@ if (WIN32)
     set(WIN32 TRUE)
     set(SOURCE_FILES ${SOURCE_FILES} plataforms/win32/SerialWin32.c)
 endif (WIN32)
+if (UNIX)
+    set(UNIX TRUE)
+    set(SOURCE_FILES ${SOURCE_FILES} plataforms/unix/SerialUnix.c)
+
+endif ()
 add_jar(libserial
         SOURCES java/com/manus/JavaSerialLib.java
         ENTRY_POINT com/manus/JavaSerialLib

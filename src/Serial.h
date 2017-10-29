@@ -12,7 +12,6 @@
 extern "C" {
 #endif
 
-
 typedef struct {
     char * portName;
     long baudRate;
@@ -26,11 +25,13 @@ typedef int cbool;
 
 baseSerial * serial_alloc();
 baseSerial * serial_create(char * portName, long baudRate);
+baseSerial * _serial_create(char * portName, long baudRate);
+
 cbool serial_connect(baseSerial * serial);
 int serial_write(baseSerial * serial, char * data, int size);
 int serial_read(baseSerial * serial, char * buffer, int size);
 cbool serial_connected(baseSerial * serial);
-
+cbool serial_close(baseSerial * serial);
 #ifdef  __cplusplus
 };
 #endif
