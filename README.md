@@ -2,6 +2,17 @@
 Multiplataform, lightweight and fast library to connect serial with Java
 
 
+# Pre-Requisites
+
+- Java JDK (javac in your PATH)
+- Visual Studio If you are running Windows
+
+# Build
+
+```
+cmake .
+```
+
 ## Examples
 
 Arduino interfacing
@@ -35,6 +46,30 @@ void loop() {
 
 ```
 
+```java
+JavaSerialLib lib = new JavaSerialLib("COM8", 9600);
+if(lib.connect()) {
+
+    while (true) {
+
+        lib.write('t');
+        Thread.sleep(1000);
+        lib.write('f');
+        Thread.sleep(1000);
+
+        lib.write(data);
+        int size = 0;
+        byte[] buff = new byte[1024];
+        while((size = lib.read(buff)) >= 0) {
+            System.out.println(new String(buff, 0, size));
+        }
+    }
+
+}
+```
+
+Also you can use Native C:
+
 ```c
 // C Code
 baseSerial * serial = serial_create("COM8", 9600);
@@ -56,28 +91,5 @@ if(serial_connect(serial)) {
             cout << buff << endl;
         }
     }
-}
-```
-
-Or using Java
-```java
-JavaSerialLib lib = new JavaSerialLib("COM8", 9600);
-if(lib.connect()) {
-
-    while (true) {
-
-        lib.write('t');
-        Thread.sleep(1000);
-        lib.write('f');
-        Thread.sleep(1000);
-
-        lib.write(data);
-        int size = 0;
-        byte[] buff = new byte[1024];
-        while((size = lib.read(buff)) >= 0) {
-            System.out.println(new String(buff, 0, size));
-        }
-    }
-
 }
 ```
